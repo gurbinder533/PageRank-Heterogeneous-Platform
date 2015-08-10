@@ -1,0 +1,3 @@
+nvcc  -I/path/to/mvapich2/1.9/include/ -c PageRank_CUDA_MPI.cu
+
+MPICH_HOME=/path/to/mvapich2/1.9

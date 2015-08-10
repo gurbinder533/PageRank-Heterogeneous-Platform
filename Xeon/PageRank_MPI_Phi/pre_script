@@ -1,0 +1,15 @@
+
+module load intel/14.0.1.106
+module load impi/4.1.3.049
+
+source /opt/apps/intel/13/composer_xe_2013.2.146/bin/compilervars.sh intel64
+source /opt/apps/intel13/impi/4.1.3.049/bin64/mpivars.sh
+
+
+
+export MIC_ENV_PREFIX=MIC
+export MIC_PPN=1  
+export KMP_AFFINITY=compact
+
+
+

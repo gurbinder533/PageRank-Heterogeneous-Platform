@@ -1,0 +1,34 @@
+
+//Common for both stampede node and your node add to ~/.bashrc
+module load intel/14.0.1.106
+module load impi/4.1.3.049
+
+source /opt/apps/intel/13/composer_xe_2013.2.146/bin/compilervars.sh intel64
+source /opt/apps/intel13/impi/4.1.3.049/bin64/mpivars.sh
+
+//Only runs on your node
+mpic++ -openmp -o test.out PageRank_Phi_MPI.cpp
+mpic++ -openmp -mmic  -o test.mic PageRank_Phi_MPI.cpp
+
+/******************Not Used *********************/
+
+module load
+export I_MPI_MIC=enable
+scp ./test.mic mic0:/tmp/test.mic
+ibrun -host c401-103.stampede ./test.out -host mic0 /tmp/test.mic
+/*************************************************/
+
+
+//added to jobs.sbatch
+
+export MIC_ENV_PREFIX=MIC
+export MIC_PPN=4// NO of MPI tasks for a mic
+export MIC_OMP_NUM_THREADS=30
+export MIC_MY_NSLOTS = //total no of MPI tasks
+
+
+
+
+
+///// BOOST
+mpic++ -I/opt/apps/intel14/boost/1.55.0/x86_64/include/ -openmp -o test.out PageRank_Phi_MPI.cpp
